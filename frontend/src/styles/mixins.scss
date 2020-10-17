@@ -1,0 +1,151 @@
+//margin auto
+@mixin push--auto {
+  margin: {
+    left: auto;
+    right: auto;
+  }
+}
+
+//input text
+@mixin inputMixin {
+  label {
+    font-size: 14px;
+    font-weight: bold;
+    color: $labelColor;
+  }
+
+  input {
+    margin-top: -0.5em;
+    height: 46px;
+    padding-right: 0.31em;
+    padding-left: 0.31em;
+    text-align: left;
+    line-height: 3.63em;
+    font-size: 18px;
+    color: $labelColor;
+    border: 1px solid black;
+    border-radius: 0;
+  }
+
+  select {
+    margin-top: -8px;
+    height: 46px;
+    padding-top: 0;
+    padding-right: 5px;
+    padding-left: 5px;
+    text-align: left;
+    line-height: 2.5;
+    top: 6px;
+    left: 6px;
+    font-size: 18px;
+    color: rgb(0, 0, 0);
+    border: 1px solid black;
+    border-radius: 0;
+  }
+
+  .textArea {
+    margin-top: -0.5em;
+    padding-right: 0.31em;
+    padding-left: 0.31em;
+    text-align: left;
+    font-size: 18px;
+    color: $labelColor;
+    border: 1px solid black;
+    border-radius: 0;
+  }
+}
+
+//title
+@mixin titleMixin {
+  text-align: center;
+  margin-top: 78px;
+
+  .mainTitle {
+    font-family: $fontFamilyArimo;
+    font-size: 30px;
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+  }
+
+  .subTitle {
+    color: $labelColor;
+    font-family: $fontFamilySans;
+    font-size: 18px;
+    line-height: 1px;
+    padding: 5px;
+  }
+}
+
+//button mixin
+@mixin buttonMixin {
+  button {
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+    text-align: center;
+    background: $background;
+    border-radius: 3px;
+    border: none;
+    font-size: 20px;
+    height: 46px;
+    text-transform: uppercase;
+  }
+
+  @include mq("phone") {
+    width: 80%;
+  }
+
+  @include mq("phablet") {
+    width: 80%;
+  }
+}
+
+//media queries
+$breakpoints: (
+  "iphone5": 320px,
+  "iphone5-wide": 600px,
+  "phone": 400px,
+  "phone-wide": 480px,
+  "phablet": 560px,
+  "phonesmall-wide": 568px,
+  "tablet-small": 640px,
+  "iphone6-wide": 667px,
+  "pixel2-wide": 736px,
+  "pixel2xl-wide": 823px,
+  "tablet": 768px,
+  "laptop": 1024px,
+  "desktop": 1248px,
+  "desktop-md": 1366px,
+  "desktop-wide": 1440px,
+  "laptop-wide": 1600px,
+  "laptop-large": 1920px
+);
+
+@mixin mq($width, $type: max) {
+  @if map_has_key($breakpoints, $width) {
+    $width: map_get($breakpoints, $width);
+
+    @if $type==min {
+      $width: $width - 1px;
+    }
+
+    @media only screen and (#{$type}-width: $width) {
+      @content;
+    }
+  }
+}
+
+@mixin mqlg($width, $type: min) {
+  @if map_has_key($breakpoints, $width) {
+    $width: map_get($breakpoints, $width);
+
+    @if $type==max {
+      $width: $width - 1px;
+    }
+
+    @media only screen and (#{$type}-width: $width) {
+      @content;
+    }
+  }
+}
